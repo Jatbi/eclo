@@ -128,6 +128,64 @@ $username = $app->getSession('username');
 $app->deleteSession('username');
 ```
 
+Xử lý với database
+```php
+
+$data = $app->select("account", [
+	"user_name",
+	"email"
+], [
+	"user_id[>]" => 100
+]);
+ 
+// $data = array(
+//  [0] => array(
+//	  "user_name" => "foo",
+//	  "email" => "foo@bar.com"
+//  ),
+//  [1] => array(
+//	  "user_name" => "cat",
+//	  "email" => "cat@dog.com"
+//  )
+// )
+ 
+foreach($data as $item) {
+	echo "user_name:" . $item["user_name"] . " - email:" . $item["email"] . "<br/>";
+}
+
+// insert databse
+$app->insert("account", [
+	"user_name" => "foo",
+	"email" => "foo@bar.com",
+	"age" => 25
+]);
+ 
+$account_id = $app->id();
+
+// cập nhật database
+
+$app->update("account", [
+	"type" => "user",
+], [
+	"user_id[<]" => 1000
+]);
+
+// xóa database
+$app->delete("account", [
+   "AND" => [
+	"type" => "business",
+	"age[<]" => 18
+   ]
+]);
+
+// get database
+
+$email = $app->get("account", "email", [
+	"user_id" => 1234
+]);
+```
+
+```php
 Xử lý API
 ```php
 //Gửi yêu cầu GET đến API:
