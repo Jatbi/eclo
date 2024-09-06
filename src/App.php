@@ -1,5 +1,5 @@
 <?php
-namespace ECLO\App;
+namespace ECLO;
 require 'vendor/autoload.php';
 use Medoo\Medoo;
 use Verot\Upload\Upload;
