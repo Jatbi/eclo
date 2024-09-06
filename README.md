@@ -222,8 +222,8 @@ $email = $app->get("account", "email", [
 ]);
 ```
 
-```php
 Xử lý API
+
 ```php
 //Gửi yêu cầu GET đến API:
 $response = $app->apiGet('https://api.example.com/data', ['Authorization: Bearer your_token']);
@@ -242,6 +242,7 @@ $response = $app->apiDelete('https://api.example.com/data/1', ['Authorization: B
 echo $response;
 
 ```
+
 Xử lý JWT 
 
 ```php
