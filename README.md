@@ -42,3 +42,39 @@ $dbConfig = [
 ];
 $app = new App($dbConfig);
 ```
+Thiết lặp router
+```php
+$app->get("/home", function($vars) {
+    $hello = 'Hello ECLO';
+    echo $hello;
+});
+```
+Thiết lặp router với ID 
+```php
+$app->get("/home/{id}", function($vars) {
+    $hello = 'Hello '.$vard['id'];
+    echo $hello;
+});
+```
+Thiết lặp router với POST
+```php
+$app->post("/home", function($vars) {
+    $hello = 'Hello '.$vard['id'];
+    echo $hello;
+});
+```
+Sử dụng router với app
+```php
+$app->get("/home", function($vars) use ($app) {
+ $app->header([
+  'Content-Type' => 'application/json',
+ ]);
+ $response = [
+  'message' => 'This is the home page.',
+  'data' => $vars
+ ];
+ echo json_encode($response);
+});
+```
+
+
