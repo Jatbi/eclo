@@ -44,28 +44,28 @@ $app = new App($dbConfig);
 ```
 Thiết lặp router
 ```php
-$app->get("/home", function($vars) {
+$app->router("/home", 'GET', function($vars) {
     $hello = 'Hello ECLO';
     echo $hello;
 });
 ```
 Thiết lặp router với ID 
 ```php
-$app->get("/home/{id}", function($vars) {
+$app->router("/home/{id}", 'GET', function($vars) {
     $hello = 'Hello '.$vard['id'];
     echo $hello;
 });
 ```
 Thiết lặp router với POST
 ```php
-$app->post("/home", function($vars) {
+$app->router("/home", 'POST', function($vars) {
     $hello = 'Hello '.$vard['id'];
     echo $hello;
 });
 ```
 Sử dụng router với app
 ```php
-$app->get("/home", function($vars) use ($app) {
+$app->router("/home",  'GET', function($vars) use ($app) {
    // set header cho router
    $app->header([
     'Content-Type' => 'application/json',
@@ -80,7 +80,7 @@ $app->get("/home", function($vars) use ($app) {
 Sử dụng router với app có database 
 
 ```php
-$app->get("/home", function($vars) use ($app) {
+$app->router("/home",  'GET', function($vars) use ($app) {
    $app->header([
     'Content-Type' => 'application/json',
    ]);
@@ -94,7 +94,7 @@ Set quyền truy cập cho router
 $userPermissions = ["home","home.add"];
 // set quyền truy cập
 $app->setUserPermissions($userPermissions);
-$app->get("/home", function($vars) {
+$app->router("/home", 'GET', function($vars) {
     $hello = 'Hello '.$vard['id'];
     echo $hello;
 })->setPermissions(["home"]);
