@@ -51,6 +51,8 @@ Thiết lặp router
 $app->router("/home", 'GET', function($vars) {
     $hello = 'Hello ECLO';
     echo $hello;
+    // render đến giao diện
+    echo $app->render('templates/test.html', $vars);
 });
 ```
 Thiết lặp router với ID 
