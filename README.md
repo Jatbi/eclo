@@ -67,6 +67,10 @@ $app->router("/home", 'POST', function($vars) {
     echo $hello;
 });
 
+```
+Thiết lặp file gốc và đăng ký component
+```php
+
 // sử dụng file chính
 $app->setGlobalFile(__DIR__ . '/global.php');
 
@@ -88,6 +92,7 @@ require_once $templatePath;
 echo $app->component('footer')
 
 ```
+
 Sử dụng router với app
 ```php
 $app->router("/home",  'GET', function($vars) use ($app) {
