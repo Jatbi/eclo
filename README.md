@@ -66,15 +66,34 @@ $app->post("/home", function($vars) {
 Sử dụng router với app
 ```php
 $app->get("/home", function($vars) use ($app) {
- $app->header([
-  'Content-Type' => 'application/json',
- ]);
- $response = [
-  'message' => 'This is the home page.',
-  'data' => $vars
- ];
- echo json_encode($response);
+   $app->header([
+    'Content-Type' => 'application/json',
+   ]);
+   $response = [
+     'message' => 'This is the home page.',
+     'data' => $vars
+   ];
+   echo json_encode($response);
 });
 ```
+Sử dụng router với app có database 
 
+```php
+$app->get("/home", function($vars) use ($app) {
+   $app->header([
+    'Content-Type' => 'application/json',
+   ]);
+   $datas = $app->select("table","*",["email"=>"info@eclo.vn"]);
+   echo json_encode($datas);
+});
+```
+Set quyền truy cập cho router
 
+```php
+$userPermissions = ["home","home.add"];
+$app->setUserPermissions($userPermissions);
+$app->get("/home", function($vars) {
+    $hello = 'Hello '.$vard['id'];
+    echo $hello;
+})->setPermissions(["home"]);
+```
