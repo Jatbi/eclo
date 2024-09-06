@@ -44,6 +44,10 @@ $app = new App($dbConfig);
 ```
 Thiết lặp router
 ```php
+// gọi router đến 1 file
+ $app->request("/home",'home.php');
+
+// cấu hình router
 $app->router("/home", 'GET', function($vars) {
     $hello = 'Hello ECLO';
     echo $hello;
@@ -62,6 +66,27 @@ $app->router("/home", 'POST', function($vars) {
     $hello = 'Hello '.$vard['id'];
     echo $hello;
 });
+
+// sử dụng file chính
+$app->setGlobalFile(__DIR__ . '/global.php');
+
+// đăng ký component
+$app->setComponent('header', function($vars) {
+   echo "<header><h1>Header Component</h1></header>";
+});
+$app->setComponent('footer', function($vars) {
+   echo "<footer><p>Footer Component</p></footer>";
+});
+$app->setComponent('text', function($vars) {
+   include('text.html');
+});
+
+// hiện thỉ component trong file global.php
+
+echo $app->component('header');
+require_once $templatePath;
+echo $app->component('footer')
+
 ```
 Sử dụng router với app
 ```php
