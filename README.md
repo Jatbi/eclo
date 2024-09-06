@@ -52,8 +52,13 @@ $app->router("/home", 'GET', function($vars) {
     $hello = 'Hello ECLO';
     echo $hello;
     // render đến giao diện
+    $vars['hello'] = $hello;
     echo $app->render('templates/test.html', $vars);
+    // <div><?= $hello ?></div>
+    // <div><?php $hello ?></div>
+    
 });
+
 ```
 Thiết lặp router với ID 
 ```php
