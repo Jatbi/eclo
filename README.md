@@ -13,7 +13,7 @@ require 'vendor/autoload.php';
 
 // sử dụng ECLO namespace.
 use ECLO\App;
-$app 	= new App();
+$app = new App();
 
 // hoặc sử dụng với database
 
