@@ -116,16 +116,8 @@ class App{
         return $this->decodeJWT($token) !== null;
     }
     // Đăng ký route với phương thức GET
-    public function get($route, $callback = null){
-        return $this->registerRoute('GET', $route, $callback);
-    }
-    // Đăng ký route với phương thức POST
-    public function post($route, $callback = null){
-        return $this->registerRoute('POST', $route, $callback);
-    }
-    // Đăng ký route với phương thức PUT
-    public function put($route, $callback = null){
-        return $this->registerRoute('PUT', $route, $callback);
+    public function router($route, $method, $callback = null){
+        return $this->registerRoute($method, $route, $callback);
     }
     // Đăng ký component
     public function setComponent($name, $callback){
