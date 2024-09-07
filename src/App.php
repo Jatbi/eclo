@@ -24,11 +24,21 @@ class App{
     private $allowed_protocols = array(), $allowed_tags = array();
     private $jwtKey;
     private $jwtAlgorithm;
+    private $valueData = [];
     // Khởi tạo với hoặc không có Medoo
     public function __construct($dbConfig = null) {
         if ($dbConfig) {
             $this->database = new Medoo($dbConfig);
         }
+    }
+    // Cài đặt dữ liệu toàn cục
+    public function setValueData(string $key, $value) {
+        $this->valueData[$key] = $value;
+    }
+
+    // Lấy dữ liệu toàn cục
+    public function getGlobalData() {
+        return $this->globalData;
     }
     // Phương thức để upload file
     public function upload($fileField) {
@@ -132,6 +142,7 @@ class App{
     }
     // Render component
     public function component($name, $vars = []){
+        $vars = array_merge($this->valueData, $vars);
         if (isset($this->components[$name])) {
             ob_start();
             $callback = $this->components[$name];
@@ -251,11 +262,12 @@ class App{
     }
     // Render HTML template
     public function render($templatePath, $vars = [], $ajax = null){
+        $vars = array_merge($this->valueData, $vars);
         if (file_exists($templatePath)) {
             extract($vars);
             ob_start();
             $app = $this;
-            if ($ajax != 'ajax') {
+            if ($ajax != 'global') {
                 include $this->globalFile;
             } else {
                 include $templatePath;
@@ -265,6 +277,7 @@ class App{
         }
         return "Template not found";
     }
+    
     // Thiết lập cookie
     public function setCookie($name, $value, $expire = 0, $path = '', $domain = '', $secure = false, $httponly = false) {
         setcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
