@@ -77,6 +77,10 @@ $app->router("/home", 'POST', function($vars) {
 ```
 Thiết lặp file gốc và đăng ký component
 ```php
+// set dữ liệu
+$eclo = [];
+$app->setValueData('eclo', $eclo);
+
 
 // sử dụng file chính
 $app->setGlobalFile(__DIR__ . '/global.php');
