@@ -17,6 +17,7 @@ class App{
     private $components = [];
     private $controllers = [];
     private $globalFile = null;
+    private $errorFile = null;
     private $cookies = [];
     private $sessions = [];
     private $blockedIps = [];
@@ -37,8 +38,8 @@ class App{
     }
 
     // Lấy dữ liệu toàn cục
-    public function getGlobalData() {
-        return $this->globalData;
+    public function getValueData($key) {
+        return isset($this->valueData[$key]) ? $this->valueData[$key] : null;
     }
     // Phương thức để upload file
     public function upload($fileField) {
@@ -187,6 +188,11 @@ class App{
         $this->globalFile = $filePath;
         return $this;
     }
+    // Đặt file lỗi
+    public function setErrorFile($filePath){
+        $this->errorFile = $filePath;
+        return $this;
+    }
     // Đặt quyền hạn cho route
     public function setPermissions($permissions){
         $this->currentPermissions = $permissions;
@@ -232,7 +238,7 @@ class App{
                         call_user_func($this->routes[$method][$routeVars['route']], $routeVars['vars']);
                         return;
                     } else {
-                        echo "403 - Forbidden";
+                        include $this->errorFile;
                         return;
                     }
                 }
@@ -244,10 +250,10 @@ class App{
             if ($this->checkPermission($routeVars['route'])) {
                 call_user_func($this->routes[$method][$routeVars['route']], $routeVars['vars']);
             } else {
-                echo "403 - Forbidden";
+               include $this->errorFile;
             }
         } else {
-            echo "404 - Route not found";
+            include $this->errorFile;
         }
     }
     // Hàm khớp route và lấy biến từ route
