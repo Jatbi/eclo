@@ -153,7 +153,7 @@ class App{
         return "Component not found";
     }
     // Đăng ký route chung
-    private function registerRoute($method, $route, $callback = null){
+       private function registerRoute($method, $route, $callback = null){
         if ($callback === null && is_callable($route)) {
             $callback = $route;
             $route = $this->currentRoute;
@@ -164,8 +164,8 @@ class App{
             $this->routes[$method][$route] = function($vars) use ($callback) {
                 $callback($vars);
             };
-            $this->setCurrentPermissions($route,$this->currentPermissions);
-            $this->currentRoute = null;
+            // Lưu lại route hiện tại
+            $this->currentRoute = $route;
         } else {
             $this->currentRoute = $route;
         }
@@ -195,7 +195,10 @@ class App{
     }
     // Đặt quyền hạn cho route
     public function setPermissions($permissions){
-        $this->currentPermissions = $permissions;
+        if ($this->currentRoute) {
+            $this->setCurrentPermissions($this->currentRoute, $permissions);
+            // Không cần reset lại currentRoute ở đây vì đã lưu trong registerRoute
+        }
         return $this;
     }
     public function setCurrentPermissions($route, $permissions){
